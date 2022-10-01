@@ -3,7 +3,7 @@
 // @namespace   https://github.com/barklan
 // @match       https://translate.google.com/*
 // @grant       none
-// @version     1.0.3
+// @version     1.1.0
 // @author      barklan
 // @description 10/1/2022, 10:30:25 AM
 // ==/UserScript==
