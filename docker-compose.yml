@@ -14,7 +14,7 @@ services:
 
   cache:
     image: 'redis:7.0.5-alpine'
-    command: 'redis-server --save 60 1'
+    command: 'redis-server --save 300 1'
     ports:
       - '6379:6379'
     volumes:
