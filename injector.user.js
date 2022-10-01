@@ -3,7 +3,7 @@
 // @namespace   https://github.com/barklan
 // @match       https://translate.google.com/*
 // @grant       none
-// @version     1.2.0
+// @version     1.3.0
 // @author      barklan
 // @description 10/1/2022, 10:30:25 AM
 // ==/UserScript==
@@ -22,12 +22,18 @@ setTimeout(() => {
   newDiv.style.boxShadow = "0 1px 4px 0 rgba(0,0,0,.37)";
 
   var currentPage = location.href;
+  var currentText = '';
 
   setInterval(function () {
     currentPage = location.href;
 
     var textarea = document.getElementsByTagName('textarea')[0];
-    const text = textarea.value.trim()
+    text = textarea.value.trim()
+    if (text === currentText) {
+      return
+    } else {
+      currentText = text
+    }
 
     let searchTerm = text
     if (text.indexOf(' ') > -1) {
