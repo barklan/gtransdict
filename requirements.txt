@@ -1,4 +1,4 @@
 fastapi
 uvicorn
 wiktionaryparser
-redis
+redis[hiredis]

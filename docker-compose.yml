@@ -1,0 +1,31 @@
+version: "3.8"
+services:
+
+  backend:
+    build:
+      context: .
+      dockerfile: dockerfiles/backend.dockerfile
+    ports:
+      - '8000:8000'
+    networks:
+      - traefik-public
+    env_file:
+      - ./.env
+
+  cache:
+    image: 'redis:7.0.5-alpine'
+    command: 'redis-server --save 60 1'
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis-dict:/data
+    networks:
+      - traefik-public
+
+volumes:
+  redis-dict:
+    external: false
+
+networks:
+  traefik-public:
+    external: false
