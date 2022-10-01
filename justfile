@@ -1,6 +1,9 @@
 up:
   docker-compose up --build
 
+upd:
+  docker-compose up --build -d
+
 back-server:
   uvicorn main:app --reload --port 8000
 
