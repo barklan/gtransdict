@@ -1,15 +1,47 @@
 from wiktionaryparser import WiktionaryParser
 from fastapi import FastAPI
 import redis
+from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 r = redis.Redis(host="cache", port=6379, db=0)
+from ast import literal_eval
 parser = WiktionaryParser()
 
 
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
+
+
+def it(string):
+    return f"<i>{string}</i>"
+
+
+def bd(string):
+    return f"<b>{string}</b>"
+
+
+def style(short: str) -> str:
+    if short == "not found":
+        return short
+    if hasattr(short, 'decode') and callable(getattr(short, 'decode')):
+        short = short.decode('utf-8')
+    decoded = short.replace(" ", " ")
+    vector = decoded.split(" ")
+    vector[0] = bd(vector[0])
+    for i in range(1, len(vector)):
+        el = vector[i]
+        last = el[-1]
+        if last == "," or last == ")":
+            if el[0] == "(":
+                vector[i] = it("(") + bd(el[1:-1]) + it(last)
+            else:
+                vector[i] = bd(el[:-1]) + it(last)
+        else:
+            vector[i] = it(el)
+    new = " ".join(vector)
+    return new
 
 
 def recursion(word: str) -> dict:
@@ -41,4 +73,6 @@ def recursion(word: str) -> dict:
 
 @app.get("/{word}")
 def read_item(word: str):
-    return recursion(word)
+    answer = recursion(word)
+    answer["def"] = style(answer["def"])
+    return answer

@@ -18,7 +18,6 @@ newDiv.style.border = "1px solid #dadce0";
 newDiv.style.borderRadius = "8px";
 newDiv.style.zIndex = "999";
 newDiv.style.boxShadow = "0 1px 4px 0 rgba(0,0,0,.37)";
-newDiv.style.fontWeight = "bold";
 
 var currentPage = location.href;
 
@@ -45,6 +44,6 @@ setInterval(function () {
     .then((content) => {
       const resp = JSON.parse(content);
       const respDef = resp.def;
-      newDiv.innerText = respDef;
+      newDiv.innerHTML = respDef;
     });
 }, 500);
