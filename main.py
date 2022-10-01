@@ -12,7 +12,7 @@ NOT_FOUND = "not found"
 
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
+    return {"def": "&nbsp"}
 
 
 def it(string):
