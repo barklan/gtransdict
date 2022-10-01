@@ -1,11 +1,9 @@
 from wiktionaryparser import WiktionaryParser
 from fastapi import FastAPI
 import redis
-from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 r = redis.Redis(host="cache", port=6379, db=0)
-from ast import literal_eval
 parser = WiktionaryParser()
 
 NOT_FOUND = "not found"
