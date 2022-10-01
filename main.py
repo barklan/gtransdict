@@ -12,8 +12,7 @@ def read_root():
     return {"Hello": "World"}
 
 
-@app.get("/{word}")
-def read_item(word: str):
+def recursion(word: str) -> dict:
     cached = r.get(word)
     if cached:
         return {"def": cached, "source": "cache"}
@@ -21,7 +20,15 @@ def read_item(word: str):
     try:
         fetched = parser.fetch(word, "german")
         try:
-            short = fetched[0]["definitions"][0]["text"][0]
+            working = fetched[0]["definitions"][0]
+            short = working["text"][0]
+
+            hint = working["text"][1]
+            if short == word and " of " in hint:
+                nextToSearch = hint.split(" ")[-1]
+                nextToSearch = nextToSearch.replace(":", "")
+                return recursion(nextToSearch)
+
             r.set(word, short)
             return {"def": short, "source": "wikitionary"}
         except:
@@ -30,3 +37,8 @@ def read_item(word: str):
     except:
         print("failed to fetch definition fron wikitionary")
         return {"def": "wikitionary request failed"}
+
+
+@app.get("/{word}")
+def read_item(word: str):
+    return recursion(word)
