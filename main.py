@@ -8,6 +8,7 @@ r = redis.Redis(host="cache", port=6379, db=0)
 from ast import literal_eval
 parser = WiktionaryParser()
 
+NOT_FOUND = "not found"
 
 @app.get("/")
 def read_root():
@@ -23,11 +24,11 @@ def bd(string):
 
 
 def style(short: str) -> str:
-    if short == "not found":
-        return short
     if hasattr(short, 'decode') and callable(getattr(short, 'decode')):
         short = short.decode('utf-8')
     decoded = short.replace(" ", " ")
+    if decoded == NOT_FOUND:
+        return decoded
     vector = decoded.split(" ")
     vector[0] = bd(vector[0])
     for i in range(1, len(vector)):
@@ -64,8 +65,8 @@ def recursion(word: str) -> dict:
             r.set(word, short)
             return {"def": short, "source": "wikitionary"}
         except:
-            r.setex(word, 100, "not found")
-            return {"def": "not found"}
+            r.setex(word, 100, NOT_FOUND)
+            return {"def": NOT_FOUND}
     except:
         print("failed to fetch definition fron wikitionary")
         return {"def": "wikitionary request failed"}
@@ -74,5 +75,4 @@ def recursion(word: str) -> dict:
 @app.get("/{word}")
 def read_item(word: str):
     answer = recursion(word)
-    answer["def"] = style(answer["def"])
-    return answer
+    return {"def": style(answer["def"])}
