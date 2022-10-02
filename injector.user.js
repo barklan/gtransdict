@@ -3,12 +3,21 @@
 // @namespace   https://github.com/barklan
 // @match       https://translate.google.com/*
 // @grant       none
-// @version     1.4.0
+// @version     1.5.0
 // @author      barklan
 // @description 10/1/2022, 10:30:25 AM
 // ==/UserScript==
 
 setTimeout(() => {
+    document.onkeyup = function(e) {
+        // Ctrl + M
+        if (e.ctrlKey && e.which == 77) {
+            var textarea = document.getElementsByTagName("textarea")[0];
+            textarea.value = "";
+            textarea.focus();
+        }
+    };
+
     // Dict div
     const newDiv = document.createElement("div");
     document.getElementsByClassName("hgbeOc")[0].appendChild(newDiv);
