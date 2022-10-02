@@ -80,7 +80,8 @@ def recursion(word: str) -> dict:
                     nextToSearch = hint.split(" ")[-1]
                     nextToSearch = nextToSearch.replace(":", "")
                     return recursion(nextToSearch)
-                if working["partOfSpeech"] in ["preposition", "pronoun", "article"]:
+                # if working["partOfSpeech"] in ["preposition", "pronoun", "article"]:
+                if working["partOfSpeech"] != "noun":
                     hint = ""
                 else:
                     hint = remove_text_inside_brackets(hint).strip()
