@@ -3,7 +3,7 @@
 // @namespace   https://github.com/barklan
 // @match       https://translate.google.com/*
 // @grant       GM_addStyle
-// @version     1.6.0
+// @version     1.7.0
 // @author      barklan
 // @description 10/1/2022, 10:30:25 AM
 // ==/UserScript==
@@ -80,7 +80,7 @@ setTimeout(() => {
             let split = text.split(" ");
             searchTerm = split[split.length - 1].trim();
         }
-        if (searchTerm.length <= 2) {
+        if (searchTerm.length <= 1) {
             blocked = false;
             return;
         }
