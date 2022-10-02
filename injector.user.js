@@ -2,11 +2,17 @@
 // @name        DictInjector
 // @namespace   https://github.com/barklan
 // @match       https://translate.google.com/*
-// @grant       none
-// @version     1.5.0
+// @grant       GM_addStyle
+// @version     1.6.0
 // @author      barklan
 // @description 10/1/2022, 10:30:25 AM
 // ==/UserScript==
+
+GM_addStyle(`
+.GQpbTd {
+    padding-top: 50px;
+}
+`);
 
 setTimeout(() => {
     document.onkeyup = function(e) {
@@ -20,15 +26,22 @@ setTimeout(() => {
 
     // Dict div
     const newDiv = document.createElement("div");
-    document.getElementsByClassName("hgbeOc")[0].appendChild(newDiv);
-    newDiv.style.position = "fixed";
-    newDiv.style.right = "48px";
+    // document.getElementsByClassName("hgbeOc")[0].appendChild(newDiv);
+    document.getElementsByClassName("ccvoYb")[0].appendChild(newDiv);
+    newDiv.style.position = "absolute";
+    // newDiv.style.right = "48px";
     newDiv.style.backgroundColor = "white";
     newDiv.style.padding = "10px";
+    newDiv.style.marginTop = "10px";
     newDiv.style.border = "1px solid #dadce0";
     newDiv.style.borderRadius = "8px";
     newDiv.style.zIndex = "999";
-    newDiv.style.boxShadow = "0 1px 4px 0 rgba(0,0,0,.37)";
+    // newDiv.style.boxShadow = "0 1px 4px 0 rgba(0,0,0,.37)";
+    newDiv.style.maxWidth = "583px";
+    // newDiv.style.maxWidth = "44.4vw";
+    newDiv.style.marginLeft = "612px";
+    // newDiv.style.marginLeft = "46.7vw";
+    newDiv.style.fontSize = "16px";
 
     // Image div
     const imgDiv = document.createElement("div");
@@ -46,29 +59,38 @@ setTimeout(() => {
     var currentPage = location.href;
     var currentText = "";
 
-    setInterval(function() {
-        currentPage = location.href;
+    var textarea = document.getElementsByTagName("textarea")[0];
+    var blocked = false;
 
-        var textarea = document.getElementsByTagName("textarea")[0];
+    setInterval(function() {
+        if (blocked) {
+            return;
+        }
+        blocked = true;
+        // function requestInfo() {
         text = textarea.value.trim();
         if (text === "") {
+            newDiv.innerHTML = ``;
             imgDiv.innerHTML = ``;
+            blocked = false;
             return;
         }
-        if (text === currentText) {
-            return;
-        } else {
-            currentText = text;
-            imgDiv.innerHTML = ``;
-        }
-
         let searchTerm = text;
         if (text.indexOf(" ") > -1) {
             let split = text.split(" ");
             searchTerm = split[split.length - 1].trim();
         }
         if (searchTerm.length <= 2) {
+            blocked = false;
             return;
+        }
+        if (searchTerm === currentText) {
+            blocked = false;
+            return;
+        } else {
+            currentText = searchTerm;
+            newDiv.innerHTML = ``;
+            imgDiv.innerHTML = ``;
         }
         let urlToFetch = `http://localhost:8000/${searchTerm}`;
 
@@ -104,9 +126,13 @@ setTimeout(() => {
 <img id="term-image3" style="max-height: 150px; width: auto;" src="${imageUrl3}" alt="${hint} image3">
 `;
                         });
+                    blocked = false;
                 } else {
                     imgDiv.innerHTML = ``;
+                    blocked = false;
                 }
             });
-    }, 500);
+    }, 300);
+
+    // textarea.onkeyup = requestInfo;
 }, 100);
