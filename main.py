@@ -6,7 +6,7 @@ app = FastAPI()
 r = redis.Redis(host="cache", port=6379, db=0)
 parser = WiktionaryParser()
 
-NOT_FOUND = "not found"
+NOT_FOUND = "---"
 
 
 @app.get("/")
