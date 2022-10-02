@@ -3,7 +3,7 @@
 // @namespace   https://github.com/barklan
 // @match       https://translate.google.com/*
 // @grant       GM_addStyle
-// @version     1.7.0
+// @version     1.8.0
 // @author      barklan
 // @description 10/1/2022, 10:30:25 AM
 // ==/UserScript==
@@ -70,7 +70,7 @@ setTimeout(() => {
         // function requestInfo() {
         text = textarea.value.trim();
         if (text === "") {
-            newDiv.innerHTML = ``;
+            newDiv.innerHTML = `&nbsp`;
             imgDiv.innerHTML = ``;
             blocked = false;
             return;
@@ -89,7 +89,7 @@ setTimeout(() => {
             return;
         } else {
             currentText = searchTerm;
-            newDiv.innerHTML = ``;
+            newDiv.innerHTML = `&nbsp`;
             imgDiv.innerHTML = ``;
         }
         let urlToFetch = `http://localhost:8000/${searchTerm}`;
