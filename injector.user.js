@@ -3,7 +3,7 @@
 // @namespace   https://github.com/barklan
 // @match       https://translate.google.com/*
 // @grant       GM_addStyle
-// @version     1.8.0
+// @version     1.8.1
 // @author      barklan
 // @description 10/1/2022, 10:30:25 AM
 // ==/UserScript==
@@ -30,7 +30,7 @@ setTimeout(() => {
     document.getElementsByClassName("ccvoYb")[0].appendChild(newDiv);
     newDiv.style.position = "absolute";
     // newDiv.style.right = "48px";
-    newDiv.style.backgroundColor = "white";
+    newDiv.style.backgroundColor = "#FFD6D6";
     newDiv.style.padding = "10px";
     newDiv.style.marginTop = "10px";
     newDiv.style.border = "1px solid #dadce0";

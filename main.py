@@ -1,6 +1,6 @@
-from wiktionaryparser import WiktionaryParser
-from fastapi import FastAPI
 import redis
+from fastapi import FastAPI
+from wiktionaryparser import WiktionaryParser
 
 app = FastAPI()
 r = redis.Redis(host="cache", port=6379, db=0)
@@ -101,4 +101,5 @@ def recursion(word: str) -> dict:
 @app.get("/{word}")
 def read_item(word: str):
     answer = recursion(word)
-    return {"def": style(answer["def"]), "hint": answer["hint"]}
+    # return {"def": style(answer["def"]), "hint": answer["hint"]}
+    return {"def": style(answer["def"]), "hint": ""}
