@@ -3,7 +3,7 @@
 // @namespace   https://github.com/barklan
 // @match       https://translate.google.com/*
 // @grant       GM_addStyle
-// @version     1.8.2
+// @version     1.8.3
 // @author      barklan
 // @description 10/1/2022, 10:30:25 AM
 // ==/UserScript==
@@ -97,7 +97,8 @@ setTimeout(() => {
         fetch(urlToFetch)
             .then((result) => {
                 if (!result.ok) {
-                    alert("request failed");
+                    console.log("request to localhost translation service failed");
+                    return;
                 }
                 return result.text();
             })
