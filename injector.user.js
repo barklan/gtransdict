@@ -3,7 +3,7 @@
 // @namespace   https://github.com/barklan
 // @match       https://translate.google.com/*
 // @grant       GM_addStyle
-// @version     1.8.3
+// @version     1.8.4
 // @author      barklan
 // @description 10/1/2022, 10:30:25 AM
 // ==/UserScript==
@@ -39,7 +39,7 @@ setTimeout(() => {
     // newDiv.style.boxShadow = "0 1px 4px 0 rgba(0,0,0,.37)";
     newDiv.style.maxWidth = "583px";
     // newDiv.style.maxWidth = "44.4vw";
-    newDiv.style.marginLeft = "612px";
+    newDiv.style.marginLeft = "47vw";
     // newDiv.style.marginLeft = "46.7vw";
     newDiv.style.fontSize = "16px";
 
